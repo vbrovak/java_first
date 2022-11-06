@@ -19,10 +19,10 @@ public class TestElement {
  public int ask(int index) {
   printQuestion(index);
   int k =  userInput.read(answers.length);
-   if (k == -1) {return(-1);}
+   if (k == -1) {return -1;}
    else
-   {k = checkSimilar(k); }
-   return (k);
+    k = checkSimilar(k);
+   return k;
   }
 
  private void printQuestion(int i) {

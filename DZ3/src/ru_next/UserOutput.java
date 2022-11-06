@@ -1,5 +1,6 @@
 package ru_next;
 
 public interface UserOutput {
-     void printMessage(String message);
+     default void printMessage(String message) {
+     }
 }

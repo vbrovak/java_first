@@ -3,9 +3,6 @@ package ru.question;
 import ru_next.Test;
 import ru_next.TestElement;
 
-import java.util.Scanner;
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -17,5 +14,3 @@ public class Main {
    testMain.runTest();
     }
 }
-
-
