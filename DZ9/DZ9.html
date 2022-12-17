@@ -1,0 +1,185 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Форма добавления информации о студенте</title>
+
+    <script>
+        function insRow() {
+            let xTable = document.getElementById('studentsTab');
+            let footer = document.getElementById('total');
+            let tr = document.createElement('tr');
+
+            var xfio = document.getElementById('fioTextBox').value;
+            let xsex = document.getElementById('sex').value;
+            let xdate = document.getElementById('datePicker').value;
+
+            <!--Возраст ->	
+            let now = new Date(); //Текущая дата
+            let today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); //Текущая дата без времени
+            let dob = new Date(xdate); //Дата рождения
+            let dobnow = new Date(today.getFullYear(), dob.getMonth(), dob.getDate()); //ДР в текущем году
+            let age; //Возраст
+            age = today.getFullYear() - dob.getFullYear();
+            //Если ДР в этом году ещё предстоит, то вычитаем из age один год
+            if (today < dobnow) {
+                age = age - 1;
+            }
+
+            <!--Добавление  строки таблицы ->
+            tr.innerHTML = '<td>' + xfio + '</td><td>' + xsex + '</td><td>' + xdate + '</td><td>' + age + '</td>';
+            xTable.children[0].appendChild(tr);
+
+            <!--Пересчет общего возраста ->	
+            let summ = 0;
+            let j = 0;
+            let table = document.getElementById('studentsTab');
+
+            for (let i = 1, row; row = table.rows[i]; i++) {
+                if (i > table.rows.length - 3) {
+                    break;
+                } else {
+                    col = row.cells[3];
+                    summ = summ + Number(col.innerHTML)
+                };
+            }
+
+            footer.innerHTML = summ / (table.rows.length - 3);
+        }
+    </script>
+    <style>
+        h3 {
+            color: steelblue;
+        }
+        
+        .students-tab {
+            border: 1px solid steelblue;
+            width: 650px;
+            border-collapse: collapse;
+            margin-bottom: 300px;
+        }
+        
+        .students-tab tr td {
+            border: 1px solid steelblue;
+        }
+        
+        .students-tab-col1 {
+            width: 300px;
+        }
+        
+        .students-tab-col2 {
+            width: 120px;
+        }
+        
+        .students-tab-col3 {
+            width: 150px;
+        }
+        
+        .students-tab-col4 {
+            width: 80px;
+        }
+        
+        .container {
+            width: 500px;
+            clear: both;
+        }
+        
+        .container input {
+            width: 100%;
+            clear: both;
+        }
+        
+        .forma {
+            border: 1px solid steelblue;
+            width: 440px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        label {
+            width: 120px;
+            display: inline-block;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <h3>
+    Форма добавления информации о студенте 
+	<br>
+</h3>
+
+    <h4>	
+
+	<form border = "1" name "Form"  onsubmit="return validateForm()" action = "insert_Row()" method = "POST">
+	<table class="forma" cellpadding = 4" id="formaTab">
+      
+	<tr>
+        <td>
+        <label for = "fioTextBox">Имя студента:</label>
+        <input id = "fioTextBox" name = "fio" type = "text" style="width: 300px;" value = "Иванов Иван">
+	</td>
+        </tr>
+		
+    <tr>
+        <td>
+        <label for = "datePicker">Дата рождения:</label>
+        <input id = "datePicker" name = "dtBirth" type = "date" value = "2000-10-18" style="width: 300px;">
+	</td>
+        </tr>
+    <tr>
+        <td>
+        <label>Пoл:</label> 
+            <select name = "sexx" id = "sex" style="width: 300px;">
+                <option value = "мужчина" selected>мужчина</option>
+                <option value = "женщина">женщина</option>
+            </select>
+        </label>    
+	</td>
+        </tr>
+		<tr>
+        <td>
+    <input type="button" id="addmore" value="Добавить" onclick="insRow()" />
+	</td>
+        </tr>
+</table>
+</form>
+</h4>
+
+
+
+    <h3>Таблица студентов</h3>
+    <table class="students-tab" id="studentsTab">
+        <thead>
+            <tr>
+                <td class="students-tab-col1">Имя студента</td>
+                <td class="students-tab-col2">Пол</td>
+                <td class="students-tab-col3">Дата рождения</td>
+                <td class="students-tab-col4">Возраст</td>
+
+            </tr>
+        </thead>
+        <thead>
+            <tbody>
+                <!--Сюда введенное через форму ФИО -->
+                <!--Отступ -->
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <!--Сюда рассчитанный тотал -->
+                <tr>
+                    <td colspan="3"> Средний возраст студентов</td>
+                    <td class="students_total" id="total"></td>
+                </tr>
+            </tbody>
+
+    </table>
+
+
+</body>
+
+</html>
