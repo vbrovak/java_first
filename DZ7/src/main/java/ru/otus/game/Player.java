@@ -1,7 +1,7 @@
 package ru.otus.game;
 
 public class Player {
-    private final String name;
+    public  String name;
 
     public Player(String name) {
         this.name = name;
@@ -10,4 +10,5 @@ public class Player {
     public String getName() {
         return name;
     }
+
 }

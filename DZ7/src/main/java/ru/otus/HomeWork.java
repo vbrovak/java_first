@@ -5,6 +5,7 @@ import ru.otus.game.Dice;
 import ru.otus.game.DiceImpl;
 
 import ru.otus.game.DiceImplTest;
+import ru.otus.game.GameTest;
 
 
 public class HomeWork {
@@ -24,6 +25,11 @@ public class HomeWork {
         diceImp.testRoll();
         //массовая проверка
         diceImp.testRollMass();
+        //
+        GameTest GameTest = new GameTest();
+        GameTest.testPlayGameFirstPlayer();
+        GameTest.testPlayGameSecondPlayer();
+        GameTest.testPlayGameDrawn();
 
     }
     
