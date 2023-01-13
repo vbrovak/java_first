@@ -32,8 +32,11 @@ public class GameTest {
         GameWinnerPrinter winnerPrinter = new GameWinnerPrinter() {
             @Override
             public void printWinner(Player winner) {
-                winner.name = "Вася"; //  winner. this.name = "Вася";
-                System.out.printf("Победитель: %s%n", winner.getName());
+                String x = winner.getName();
+                if (x == "Вася")
+                {System.out.printf("Победитель: %s%n",x);}
+                else
+                {System.err.println("Ошибка ! Имя победителя не Вася "+winner.getName());}
             }
         };
         Game game = new Game(dice, winnerPrinter);
@@ -57,8 +60,11 @@ public class GameTest {
         GameWinnerPrinter winnerPrinter = new GameWinnerPrinter() {
             @Override
             public void printWinner(Player winner) {
-                winner.name = "Игорь"; //  winner. this.name = "Вася";
-                System.out.printf("Победитель: %s%n", winner.getName());
+                String x = winner.getName();
+                if (x == "Игорь")
+                {System.out.printf("Победитель: %s%n",x);}
+                else
+                {System.err.println("Ошибка ! Имя победителя не Игорь "+winner.getName());}
             }
         };
         Game game = new Game(dice, winnerPrinter);
@@ -78,8 +84,11 @@ public class GameTest {
         GameWinnerPrinter winnerPrinter = new GameWinnerPrinter() {
             @Override
             public void printWinner(Player winner) {
-                winner.name = "Ничья"; //  winner. this.name = "Вася";
-                System.out.printf("Победитель: %s%n", winner.getName());
+                String x = winner.getName();
+                if (x == "Игорь" || x == "Вася")
+                {System.err.printf("Ошибочное сообщение (должно быть : 'Ничья') - Победитель: %s%n",x);}
+                else
+                {System.out.println("Ничья");}
             }
         };
         Game game = new Game(dice, winnerPrinter);
