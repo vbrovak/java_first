@@ -33,7 +33,7 @@ public class GameTest {
             @Override
             public void printWinner(Player winner) {
                 String x = winner.getName();
-                if (x == "Вася")
+                if (x.equals("Вася"))
                 {System.out.printf("Победитель: %s%n",x);}
                 else
                 {System.err.println("Ошибка ! Имя победителя не Вася "+winner.getName());}
@@ -61,7 +61,7 @@ public class GameTest {
             @Override
             public void printWinner(Player winner) {
                 String x = winner.getName();
-                if (x == "Игорь")
+                if (x.equals("Игорь"))
                 {System.out.printf("Победитель: %s%n",x);}
                 else
                 {System.err.println("Ошибка ! Имя победителя не Игорь "+winner.getName());}
@@ -85,7 +85,7 @@ public class GameTest {
             @Override
             public void printWinner(Player winner) {
                 String x = winner.getName();
-                if (x == "Игорь" || x == "Вася")
+                if (x.equals("Игорь") || x.equals("Вася"))
                 {System.err.printf("Ошибочное сообщение (должно быть : 'Ничья') - Победитель: %s%n",x);}
                 else
                 {System.out.println("Ничья");}
