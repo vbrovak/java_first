@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class GameTest {
     private static String IGOR = "Игорь";
-    private static String VASYA = "Вася";
+    private static final String VASYA = "Вася";
 
     @Test
     public void testPlayGameFirstPlayer() {

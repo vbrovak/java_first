@@ -5,7 +5,7 @@ public class MyNumToWords {
             {"один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"},
             {"одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"}};
     private static final String[] dig10_19 = {"десять", "одиннадцать", "двенадцать",
-            "тринадцать", "четырнадцать",  "пятнадцать", "шестнадцать", "семнадцать",
+            "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать",
             "восемнадцать", "девятнадцать"};
     private static final String[] dig20_90 = {"двадцать", "тридцать", "сорок", "пятьдесят",
             "шестьдесят", "семьдесят", "восемьдесят", "девяносто"};
@@ -25,55 +25,71 @@ public class MyNumToWords {
     }
 
     private static String convertNum2Words(int numForConvert, int level) {
-        StringBuilder DigitsPartWords = new StringBuilder(100);
+        StringBuilder digitsPartWords = new StringBuilder(100);
         int hun = numForConvert / 100;
         int dec = (numForConvert - (hun * 100)) / 10;
         int units = numForConvert % 10;
         int lastDigitFig = numForConvert % 100;
-        int flagSex = level % 2 ;
+        int flagSex = level % 2;
 
-        //формирование числа
         if (hun > 0) {
-            DigitsPartWords.append(dig100[hun - 1]).append(" ");
-            if (dec == 0 && units == 0) //100, 200 и т д
-            {
-                DigitsPartWords.append(getFigNames(level, 2));
-            }
-        } //сотни
-
+            addHundred(hun, dec, units, level, digitsPartWords);
+        }
         if (dec == 1) { //11-19
-            DigitsPartWords.append(dig10_19[units] + " " + getFigNames(level, 2));
+            digitsPartWords.append(dig10_19[units] + " " + getFigNames(level, 2));
         } else {
-            if (dec > 1) {
-                if (units == 0) // 20,30 и тд по 90 включительно
-                {
-                    DigitsPartWords.append(dig20_90[dec - 2] + " " + getFigNames(level, 2));
-                } else {
-                    DigitsPartWords.append(dig20_90[dec - 2] + " ");
-                    DigitsPartWords.append(dig1_9[flagSex][units - 1] + " ");
-                }
-            } else { //второго разряда нет, например 401
-                if (units > 0) {
-                    DigitsPartWords.append(dig1_9[flagSex][units - 1] + " ");
-                }
-            }
+            addBase(dec, units, level, flagSex, lastDigitFig, digitsPartWords);
+        }
+        return (digitsPartWords.toString());
+    }
 
-            if (lastDigitFig > 0) switch (units) {
-                case 0:
-                    break;
-                case 1:
-                    DigitsPartWords.append(getFigNames(level, 0));
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                    DigitsPartWords.append(getFigNames(level, 1));
-                    break;
-                default:
-                    DigitsPartWords.append(getFigNames(level, 2));
+    private static void addDec(int dec, int units, int level, int flagSex, StringBuilder digitsPartWords) {
+        if (units == 0) // 20,30 и тд по 90 включительно
+        {
+            digitsPartWords.append(dig20_90[dec - 2] + " " + getFigNames(level, 2));
+        } else {
+            digitsPartWords.append(dig20_90[dec - 2] + " ");
+            digitsPartWords.append(dig1_9[flagSex][units - 1] + " ");
+        }
+    }
+
+    private static void addBase(int dec, int units, int level, int flagSex, int lastDigitFig, StringBuilder digitsPartWords) {
+        if (dec > 1) {
+            addDec(dec, units, level, flagSex, digitsPartWords);
+        } else { //второго разряда нет, например 401
+            if (units > 0) {
+                digitsPartWords.append(dig1_9[flagSex][units - 1] + " ");
             }
         }
-        return (DigitsPartWords.toString());
+        if (lastDigitFig > 0) {
+            addLastDigit(units, level, digitsPartWords);
+        }
+    }
+
+
+    private static void addHundred(int hun, int dec, int units, int level, StringBuilder digitsPartWords) {
+        digitsPartWords.append(dig100[hun - 1]).append(" ");
+        if (dec == 0 && units == 0) //100, 200 и т д
+        {
+            digitsPartWords.append(getFigNames(level, 2));
+        }
+    }
+
+    private static void addLastDigit(int units, int level, StringBuilder digitsPartWords) {
+        switch (units) {
+            case 0:
+                break;
+            case 1:
+                digitsPartWords.append(getFigNames(level, 0));
+                break;
+            case 2:
+            case 3:
+            case 4:
+                digitsPartWords.append(getFigNames(level, 1));
+                break;
+            default:
+                digitsPartWords.append(getFigNames(level, 2));
+        }
     }
 
     private static String makePropsStr(String num) {
