@@ -1,6 +1,7 @@
-package ru_propis;
+package test;
 
 import org.junit.jupiter.api.Test;
+import ru_propis.CurrName;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,4 +32,5 @@ class CurrNameTest {
     void test1119() {
         assertTrue(RUBI.equals(inst.getEndingMessage("19")));
     }
+
 }
